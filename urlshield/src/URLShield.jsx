@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_KEY = "AIzaSyDyy7jT8umqVBEhPi_zRbkBKg4ZTliDSe8";
+const API_KEY = "AIzaSyBAjz71eUVIPBJvU17Oztlu6y7ccBGsvcE";
 const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
 async function callGemini(prompt) {
