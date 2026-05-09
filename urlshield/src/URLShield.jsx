@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_KEY = "AIzaSyAfhN4NJkPexUKSXTFu1t_hkD2_LCjUE7I";
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-
+const API_KEY = "";
+const GEMINI_URL = `/api/gemini`;
 async function callGemini(prompt) {
   const res = await fetch(GEMINI_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+    body: JSON.stringify({ prompt }),
   });
   if (!res.ok) throw new Error(`API error: ${res.status}`);
   const data = await res.json();
