@@ -1,18 +1,32 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_KEY = "";
-const GEMINI_URL = `/api/gemini`;
+// 1. Paste your actual Google AI Studio key here
+const API_KEY = "AIzaSyCC5b3C-gti29tA4WhTq5KCuXWkoMPJyPw"; 
+
+// 2. Point directly to Google's official Gemini endpoint
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
 async function callGemini(prompt) {
   const res = await fetch(GEMINI_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt }),
+    // 3. Format the body exactly how Google expects it
+    body: JSON.stringify({
+      contents: [{
+        parts: [{ text: prompt }]
+      }]
+    }),
   });
-  if (!res.ok) throw new Error(`API error: ${res.status}`);
+  
+  if (!res.ok) {
+    const errorData = await res.json();
+    console.error("Gemini API Error:", errorData);
+    throw new Error(`API error: ${res.status}`);
+  }
+  
   const data = await res.json();
   return data.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "No response";
 }
-
 const THREAT_CONFIG = {
   benign:     { color: "#00ffa3", bg: "rgba(0,255,163,0.08)", border: "rgba(0,255,163,0.3)", icon: "✓", label: "SAFE", desc: "No threats detected" },
   phishing:   { color: "#a78bfa", bg: "rgba(167,139,250,0.08)", border: "rgba(167,139,250,0.3)", icon: "⚠", label: "PHISHING", desc: "Identity theft risk" },
