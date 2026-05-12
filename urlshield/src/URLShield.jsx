@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 const API_KEY = "AIzaSyCC5b3C-gti29tA4WhTq5KCuXWkoMPJyPw"; 
 
 // 2. Point directly to Google's official Gemini endpoint
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`;
 
 async function callGemini(prompt) {
   const res = await fetch(GEMINI_URL, {
